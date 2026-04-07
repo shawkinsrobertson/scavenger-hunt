@@ -8,9 +8,17 @@ import {
   ScrollView,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { colors } from '../styles/colors';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
-const CONFETTI_COLORS = ['#f59e0b', '#ec4899', '#3b82f6', '#22c55e', '#a855f7', '#ef4444'];
+const CONFETTI_COLORS = [
+  colors.primary,
+  colors.secondary,
+  colors.tertiary,
+  colors.error,
+  colors.primaryContainer,
+  colors.tertiaryContainer,
+];
 const CONFETTI_COUNT = 20;
 
 interface ConfettiPiece {
@@ -100,14 +108,16 @@ export function CelebrationScreen({ message, totalStops }: Props) {
 
   return (
     <View style={styles.screen}>
-      <StatusBar style="light" />
-      {pieces.map((p, i) => <ConfettiPiece key={i} piece={p} />)}
+      <StatusBar style="dark" />
+      {pieces.map((p, i) => (
+        <ConfettiPiece key={i} piece={p} />
+      ))}
 
       <ScrollView
         contentContainerStyle={styles.scroll}
         showsVerticalScrollIndicator={false}
       >
-        <Animated.View style={[styles.card, { transform: [{ scale }] }]}>
+        <Animated.View style={[styles.card, { transform: [{ scale }] }]}> 
           <Animated.Text style={[styles.cakeEmoji, { transform: [{ scale: cakeScale }] }]}>
             🎂
           </Animated.Text>
@@ -118,9 +128,7 @@ export function CelebrationScreen({ message, totalStops }: Props) {
               🎁 {totalStops} stop{totalStops !== 1 ? 's' : ''} completed
             </Text>
           </View>
-          <Animated.Text style={[styles.balloons, { transform: [{ translateY: balloonY }] }]}>
-            🎈🎈🎈
-          </Animated.Text>
+          <Animated.Text style={[styles.balloons, { transform: [{ translateY: balloonY }] }]}>🎈🎈🎈</Animated.Text>
         </Animated.View>
       </ScrollView>
     </View>
@@ -128,7 +136,7 @@ export function CelebrationScreen({ message, totalStops }: Props) {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#f59e0b' },
+  screen: { flex: 1, backgroundColor: colors.inversePrimary },
   scroll: {
     flexGrow: 1,
     alignItems: 'center',
@@ -136,14 +144,14 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.surface,
     borderRadius: 24,
     padding: 32,
     width: '100%',
     maxWidth: 440,
     alignItems: 'center',
     gap: 20,
-    shadowColor: '#f59e0b',
+    shadowColor: colors.inversePrimary,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.25,
     shadowRadius: 20,
@@ -154,21 +162,19 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: '800',
-    color: '#7c3aed',
+    color: colors.primary,
     textAlign: 'center',
   },
   message: {
     fontSize: 16,
-    color: '#6b7280',
+    color: colors.textMuted,
     lineHeight: 26,
     textAlign: 'center',
   },
   summaryBadge: {
-    backgroundColor: '#f3f4f6',
+    backgroundColor: colors.surfaceVariant,
     borderRadius: 20,
     paddingHorizontal: 18,
     paddingVertical: 8,
   },
-  summaryText: { fontSize: 14, fontWeight: '600', color: '#6b7280' },
-  balloons: { fontSize: 32, letterSpacing: 8 },
-});
+  summaryText: { fontSize: 14, fontWeight: '600', color: colors.textMuted },

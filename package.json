@@ -9,15 +9,15 @@
   },
   "dependencies": {
     "expo": "^55.0.11",
-    "expo-location": "~18.1.5",
-    "expo-status-bar": "~2.2.3",
-    "react": "19.0.0",
-    "react-native": "0.79.2"
+    "expo-location": "~55.1.6",
+    "expo-status-bar": "~55.0.5",
+    "react": "^19.2.0",
+    "react-native": "^0.83.4"
   },
   "devDependencies": {
     "@babel/core": "^7.25.0",
-    "@types/react": "~19.0.10",
+    "@types/react": "~19.2.10",
     "babel-preset-expo": "^55.0.15",
-    "typescript": "~5.8.3"
+    "typescript": "~5.9.2"
   }
 }

@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import type { Hunt } from '../data/hunt';
+import { colors } from '../styles/colors';
 
 interface Props {
   hunt: Hunt;
@@ -40,7 +41,7 @@ export function WelcomeScreen({ hunt, onStart }: Props) {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: '#7c3aed',
+    backgroundColor: colors.primary,
   },
   scroll: {
     flexGrow: 1,
@@ -49,14 +50,14 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.surface,
     borderRadius: 24,
     padding: 32,
     width: '100%',
     maxWidth: 440,
     alignItems: 'center',
     gap: 16,
-    shadowColor: '#7c3aed',
+    shadowColor: colors.primary,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.2,
     shadowRadius: 20,
@@ -68,29 +69,29 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 26,
     fontWeight: '800',
-    color: '#1f2937',
+    color: colors.text,
     textAlign: 'center',
   },
   message: {
     fontSize: 16,
-    color: '#6b7280',
+    color: colors.textMuted,
     lineHeight: 24,
     textAlign: 'left',
     width: '100%',
   },
   badge: {
-    backgroundColor: '#f3f4f6',
+    backgroundColor: colors.primaryContainer,
     borderRadius: 20,
     paddingHorizontal: 16,
     paddingVertical: 6,
   },
   badgeText: {
     fontSize: 14,
-    color: '#6b7280',
+    color: colors.onPrimaryContainer,
     fontWeight: '600',
   },
   btn: {
-    backgroundColor: '#7c3aed',
+    backgroundColor: colors.primary,
     borderRadius: 16,
     paddingVertical: 16,
     paddingHorizontal: 32,
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   btnText: {
-    color: '#fff',
+    color: colors.onPrimary,
     fontSize: 17,
     fontWeight: '700',
     letterSpacing: 0.3,

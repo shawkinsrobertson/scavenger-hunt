@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import type { HuntStop } from '../data/hunt';
+import { colors } from '../styles/colors';
 
 interface Props {
   stop: HuntStop;
@@ -40,7 +41,7 @@ export function PickupScreen({ stop, stopNumber, totalStops, onConfirmed }: Prop
 
   return (
     <View style={styles.screen}>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
       <View style={styles.progressTrack}>
         <View style={[styles.progressBar, { width: `${progressPercent}%` as `${number}%` }]} />
       </View>
@@ -64,9 +65,7 @@ export function PickupScreen({ stop, stopNumber, totalStops, onConfirmed }: Prop
             </>
           ) : (
             <>
-              <Animated.Text style={[styles.confirmedEmoji, { transform: [{ scale: emojiScale }] }]}>
-                🎊
-              </Animated.Text>
+              <Animated.Text style={[styles.confirmedEmoji, { transform: [{ scale: emojiScale }] }]}>🎊</Animated.Text>
               <Text style={styles.heading}>{stop.confirmedMessage}</Text>
               <LoadingDots />
             </>
@@ -109,15 +108,15 @@ function LoadingDots() {
 
 const dotStyles = StyleSheet.create({
   row: { flexDirection: 'row', gap: 8, marginTop: 8 },
-  dot: { width: 10, height: 10, borderRadius: 5, backgroundColor: '#7c3aed' },
+  dot: { width: 10, height: 10, borderRadius: 5, backgroundColor: colors.primary },
 });
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#22c55e' },
-  progressTrack: { height: 5, backgroundColor: 'rgba(255,255,255,0.3)' },
+  screen: { flex: 1, backgroundColor: colors.tertiaryContainer },
+  progressTrack: { height: 5, backgroundColor: 'rgba(0,0,0,0.12)' },
   progressBar: {
     height: 5,
-    backgroundColor: '#fff',
+    backgroundColor: colors.primary,
     borderBottomRightRadius: 3,
     borderTopRightRadius: 3,
   },
@@ -128,43 +127,42 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.surface,
     borderRadius: 24,
     padding: 28,
     width: '100%',
     maxWidth: 440,
     alignItems: 'center',
     gap: 16,
-    shadowColor: '#22c55e',
+    shadowColor: colors.tertiary,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.2,
     shadowRadius: 20,
     elevation: 8,
   },
   stopBadge: {
-    backgroundColor: '#dcfce7',
+    backgroundColor: colors.primaryContainer,
     borderRadius: 20,
     paddingHorizontal: 14,
     paddingVertical: 4,
   },
-  stopBadgeText: { fontSize: 13, fontWeight: '600', color: '#16a34a' },
+  stopBadgeText: { fontSize: 13, fontWeight: '600', color: colors.primary },
   emoji: { fontSize: 48 },
   confirmedEmoji: { fontSize: 56 },
-  heading: { fontSize: 22, fontWeight: '700', color: '#1f2937', textAlign: 'center' },
+  heading: { fontSize: 22, fontWeight: '700', color: colors.text, textAlign: 'center' },
   arrivalBox: {
-    backgroundColor: '#dcfce7',
+    backgroundColor: colors.surfaceVariant,
     borderRadius: 14,
     padding: 16,
     width: '100%',
   },
-  arrivalText: { fontSize: 16, color: '#1f2937', lineHeight: 24 },
+  arrivalText: { fontSize: 16, color: colors.text, lineHeight: 24 },
   btn: {
-    backgroundColor: '#16a34a',
+    backgroundColor: colors.primary,
     borderRadius: 16,
     paddingVertical: 16,
     width: '100%',
     alignItems: 'center',
     marginTop: 4,
   },
-  btnText: { color: '#fff', fontSize: 17, fontWeight: '700' },
-});
+  btnText: { color: colors.onPrimary, fontSize: 17, fontWeight: '700' },

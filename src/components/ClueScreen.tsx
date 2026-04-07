@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-nati
 import { StatusBar } from 'expo-status-bar';
 import { useGeolocation, distanceBetween } from '../hooks/useGeolocation';
 import type { HuntStop } from '../data/hunt';
+import { colors } from '../styles/colors';
 
 interface Props {
   stop: HuntStop;
@@ -18,7 +19,7 @@ function getClue(stop: HuntStop, distance: number): string {
 
 function ProximityIndicator({ distance }: { distance: number }) {
   const bars = distance <= 100 ? 3 : distance <= 500 ? 2 : 1;
-  const color = distance <= 100 ? '#22c55e' : distance <= 500 ? '#f59e0b' : '#ef4444';
+  const color = distance <= 100 ? colors.primary : distance <= 500 ? colors.tertiary : colors.error;
   const label = distance <= 100 ? 'Getting close!' : distance <= 500 ? 'Warmer…' : 'Far away';
 
   return (
@@ -30,7 +31,7 @@ function ProximityIndicator({ distance }: { distance: number }) {
             style={[
               proximityStyles.bar,
               {
-                backgroundColor: i <= bars ? color : '#e5e7eb',
+                backgroundColor: i <= bars ? color : colors.surface,
                 height: i * 10 + 10,
               },
             ]}
@@ -127,14 +128,14 @@ export function ClueScreen({ stop, stopNumber, totalStops, onArrived }: Props) {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#0ea5e9' },
+  screen: { flex: 1, backgroundColor: colors.secondary },
   progressTrack: {
     height: 5,
-    backgroundColor: 'rgba(255,255,255,0.3)',
+    backgroundColor: 'rgba(255,255,255,0.25)',
   },
   progressBar: {
     height: 5,
-    backgroundColor: '#fff',
+    backgroundColor: colors.surface,
     borderBottomRightRadius: 3,
     borderTopRightRadius: 3,
   },
@@ -145,53 +146,53 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.surface,
     borderRadius: 24,
     padding: 28,
     width: '100%',
     maxWidth: 440,
     alignItems: 'center',
     gap: 16,
-    shadowColor: '#0ea5e9',
+    shadowColor: colors.secondary,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.2,
     shadowRadius: 20,
     elevation: 8,
   },
   stopBadge: {
-    backgroundColor: '#ede9fe',
+    backgroundColor: colors.primaryContainer,
     borderRadius: 20,
     paddingHorizontal: 14,
     paddingVertical: 4,
   },
-  stopBadgeText: { fontSize: 13, fontWeight: '600', color: '#7c3aed' },
+  stopBadgeText: { fontSize: 13, fontWeight: '600', color: colors.primary },
   emoji: { fontSize: 48 },
-  heading: { fontSize: 22, fontWeight: '700', color: '#1f2937' },
-  muted: { fontSize: 15, color: '#6b7280' },
+  heading: { fontSize: 22, fontWeight: '700', color: colors.text },
+  muted: { fontSize: 15, color: colors.textMuted },
   errorBox: {
-    backgroundColor: '#fef2f2',
+    backgroundColor: colors.errorContainer,
     borderRadius: 12,
     padding: 14,
     width: '100%',
   },
-  errorText: { fontSize: 14, color: '#dc2626', marginBottom: 4 },
-  errorSmall: { fontSize: 12, color: '#ef4444' },
+  errorText: { fontSize: 14, color: colors.error, marginBottom: 4 },
+  errorSmall: { fontSize: 12, color: colors.onErrorContainer },
   clueBox: {
-    backgroundColor: '#ede9fe',
+    backgroundColor: colors.surfaceVariant,
     borderRadius: 14,
     padding: 16,
     width: '100%',
   },
-  clueText: { fontSize: 16, color: '#1f2937', lineHeight: 24 },
-  distanceBadge: { fontSize: 14, fontWeight: '600', color: '#6b7280' },
+  clueText: { fontSize: 16, color: colors.text, lineHeight: 24 },
+  distanceBadge: { fontSize: 14, fontWeight: '600', color: colors.textMuted },
   arrivedBtn: {
-    backgroundColor: '#7c3aed',
+    backgroundColor: colors.primary,
     borderRadius: 16,
     paddingVertical: 16,
     width: '100%',
     alignItems: 'center',
     marginTop: 4,
   },
-  btnText: { color: '#fff', fontSize: 17, fontWeight: '700' },
-  accuracy: { fontSize: 12, color: '#9ca3af' },
+  btnText: { color: colors.onPrimary, fontSize: 17, fontWeight: '700' },
+  accuracy: { fontSize: 12, color: colors.outline },
 });
