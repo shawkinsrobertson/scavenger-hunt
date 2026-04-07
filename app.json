@@ -22,7 +22,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#4658a9"
+        "backgroundColor": "#4658a9",
+        "backgroundImage": "./src/assets/splash.png"
       },
       "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"]
     },
