@@ -25,7 +25,10 @@
         "backgroundColor": "#4658a9",
         "backgroundImage": "./src/assets/treasure-chest.png"
       },
-      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"]
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
     },
     "plugins": [
       [
@@ -33,7 +36,8 @@
         {
           "locationWhenInUsePermission": "This app uses your location to guide you to each scavenger hunt stop."
         }
-      ]
+      ],
+      "expo-font"
     ]
   }
 }

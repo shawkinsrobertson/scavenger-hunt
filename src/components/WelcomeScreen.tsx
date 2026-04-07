@@ -59,7 +59,7 @@ export function WelcomeScreen({ hunt, onStart }: Props) {
           <View style={styles.badge}>
             <Text style={styles.badgeText}>{hunt.stops.length} stops to find</Text>
           </View>
-          <TouchableOpacity onPress={handleButtonPress} activeOpacity={1}>
+          <TouchableOpacity onPress={handleButtonPress} activeOpacity={1} style={styles.buttonContainer}>
             <Animated.Image
               source={require('../assets/btn-primary-active.png')}
               style={[
@@ -112,12 +112,14 @@ const styles = StyleSheet.create({
     fontSize: 56,
   },
   title: {
+    fontFamily: "PixelifySans-Bold",
     fontSize: 28,
     fontWeight: '800',
     color: colors.text,
     textAlign: 'center',
   },
   message: {
+    fontFamily: "RobotoMono-Regular",
     fontSize: 16,
     color: colors.textMuted,
     lineHeight: 24,
@@ -131,13 +133,19 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   badgeText: {
+    fontFamily: "RobotoMono-Medium",
     fontSize: 14,
     color: colors.onPrimaryContainer,
     fontWeight: '600',
   },
-  buttonImage: {
+  buttonContainer: {
     width: '100%',
     height: 60,
-    resizeMode: 'contain',
+    marginTop: 8,
+  },
+  buttonImage: {
+   width: '100%',
+   height: '100%',
+   resizeMode: 'contain',
   },
 });
