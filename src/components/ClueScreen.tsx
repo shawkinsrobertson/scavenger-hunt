@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   clueText: { fontFamily: "RobotoMono-Regular", fontSize: 16, color: colors.text, lineHeight: 24 },
-  distanceBadge: { fontFamily: "PixelifySans-SemiBold", fontSize: 14, color: colors.textMuted },
+  distanceBadge: { fontFamily: "PixelifySans-SemiBold", fontSize: 40, color: colors.textMuted, marginTop: 16 },
   buttonImage: {
     width: '100%',
     height: 60,
@@ -227,6 +227,5 @@ const styles = StyleSheet.create({
     fontFamily: "RobotoMono-Regular",
     fontSize: 12,
     color: colors.textMuted,
-    marginTop: 8, 
   },
 });

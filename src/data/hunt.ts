@@ -40,7 +40,7 @@ export const hunt: Hunt = {
   stops: [
     {
       id: "stop-1",
-      location: { lat: 47.81063329568221, lng: -122.37444287197067 }, // ← stillhouse coffee coords
+      location: { lat: 47.78214937388619, lng: -122.36755760481087 }, // ← home coords  for testing app
       clues: {
         far: "Your first surprise is hiding somewhere you love to grab a coffee. Head that direction!",
         medium: "Getting warmer! Think of the place with the green awning you pass most mornings.",
@@ -66,7 +66,7 @@ export const hunt: Hunt = {
     },
     {
       id: "stop-3",
-      location: { lat: 37.7740, lng: -122.4200 }, // ← replace with real coords
+      location: { lat: 47.81063329568221, lng: -122.37444287197067 }, // ← stillhouse coffee coords
       clues: {
         far: "Last stop — think of the place that smells like fresh bread and good things.",
         medium: "Almost there! The bakery should be coming into view.",
