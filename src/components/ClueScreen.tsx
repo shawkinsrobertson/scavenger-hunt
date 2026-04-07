@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useGeolocation, distanceBetween } from '../hooks/useGeolocation';
 import type { HuntStop } from '../data/hunt';
@@ -82,7 +82,7 @@ export function ClueScreen({ stop, stopNumber, totalStops, onArrived }: Props) {
             <Text style={styles.stopBadgeText}>Stop {stopNumber} of {totalStops}</Text>
           </View>
 
-          <Text style={styles.emoji}>🔍</Text>
+          <Image source={require('../assets/compass.png')} style={styles.heroImage} />
           <Text style={styles.heading}>Follow the Clue</Text>
 
           {geo.loading && (
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   stopBadgeText: { fontSize: 13, fontWeight: '600', color: colors.primary },
-  emoji: { fontSize: 48 },
+  heroImage: { width: 84, height: 84, marginVertical: 4 },
   heading: { fontSize: 22, fontWeight: '700', color: colors.text },
   muted: { fontSize: 15, color: colors.textMuted },
   errorBox: {

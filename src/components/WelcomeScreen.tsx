@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  Image,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import type { Hunt } from '../data/hunt';
@@ -23,14 +24,17 @@ export function WelcomeScreen({ hunt, onStart }: Props) {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.card}>
-          <Text style={styles.emoji}>🗺️</Text>
+          <Image
+            source={require('../assets/treasure-chest.png')}
+            style={styles.heroImage}
+          />
           <Text style={styles.title}>{hunt.title}</Text>
           <Text style={styles.message}>{hunt.welcomeMessage}</Text>
           <View style={styles.badge}>
             <Text style={styles.badgeText}>{hunt.stops.length} stops to find</Text>
           </View>
           <TouchableOpacity style={styles.btn} onPress={onStart} activeOpacity={0.85}>
-            <Text style={styles.btnText}>Let's Go! 🚀</Text>
+            <Text style={styles.btnText}>LET'S GO!</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -51,23 +55,30 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: colors.surface,
-    borderRadius: 24,
+    borderRadius: 28,
     padding: 32,
     width: '100%',
     maxWidth: 440,
     alignItems: 'center',
-    gap: 16,
-    shadowColor: colors.primary,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.2,
-    shadowRadius: 20,
-    elevation: 8,
+    gap: 18,
+    borderWidth: 1,
+    borderColor: colors.surfaceVariant,
+    shadowColor: colors.shadow,
+    shadowOffset: { width: 0, height: 14 },
+    shadowOpacity: 0.14,
+    shadowRadius: 28,
+    elevation: 10,
+  },
+  heroImage: {
+    width: 112,
+    height: 112,
+    marginBottom: 8,
   },
   emoji: {
     fontSize: 56,
   },
   title: {
-    fontSize: 26,
+    fontSize: 28,
     fontWeight: '800',
     color: colors.text,
     textAlign: 'center',

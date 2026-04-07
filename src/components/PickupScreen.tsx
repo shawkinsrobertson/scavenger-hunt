@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Animated,
+  Image,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import type { HuntStop } from '../data/hunt';
@@ -54,7 +55,7 @@ export function PickupScreen({ stop, stopNumber, totalStops, onConfirmed }: Prop
 
           {!confirmed ? (
             <>
-              <Text style={styles.emoji}>📍</Text>
+              <Image source={require('../assets/key.png')} style={styles.heroImage} />
               <Text style={styles.heading}>You're Here!</Text>
               <View style={styles.arrivalBox}>
                 <Text style={styles.arrivalText}>{stop.arrivalMessage}</Text>
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   stopBadgeText: { fontSize: 13, fontWeight: '600', color: colors.primary },
-  emoji: { fontSize: 48 },
+  heroImage: { width: 84, height: 84, marginBottom: 8 },
   confirmedEmoji: { fontSize: 56 },
   heading: { fontSize: 22, fontWeight: '700', color: colors.text, textAlign: 'center' },
   arrivalBox: {
