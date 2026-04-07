@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import * as Location from 'expo-location';
 
 export interface GeoState {
   lat: number | null;
@@ -17,40 +18,52 @@ export function useGeolocation(): GeoState {
     loading: true,
   });
 
-  const watchId = useRef<number | null>(null);
+  const subscription = useRef<Location.LocationSubscription | null>(null);
 
   useEffect(() => {
-    if (!navigator.geolocation) {
-      setState(s => ({ ...s, loading: false, error: 'Geolocation is not supported by your browser.' }));
-      return;
+    let cancelled = false;
+
+    async function start() {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (cancelled) return;
+
+      if (status !== 'granted') {
+        setState(s => ({
+          ...s,
+          loading: false,
+          error: 'Location permission denied. Please enable it in Settings.',
+        }));
+        return;
+      }
+
+      subscription.current = await Location.watchPositionAsync(
+        {
+          accuracy: Location.Accuracy.High,
+          distanceInterval: 5,
+          timeInterval: 3000,
+        },
+        (loc) => {
+          if (cancelled) return;
+          setState({
+            lat: loc.coords.latitude,
+            lng: loc.coords.longitude,
+            accuracy: loc.coords.accuracy,
+            error: null,
+            loading: false,
+          });
+        },
+      );
     }
 
-    const options: PositionOptions = {
-      enableHighAccuracy: true,
-      maximumAge: 5000,
-      timeout: 15000,
-    };
-
-    watchId.current = navigator.geolocation.watchPosition(
-      (pos) => {
-        setState({
-          lat: pos.coords.latitude,
-          lng: pos.coords.longitude,
-          accuracy: pos.coords.accuracy,
-          error: null,
-          loading: false,
-        });
-      },
-      (err) => {
+    start().catch((err: Error) => {
+      if (!cancelled) {
         setState(s => ({ ...s, loading: false, error: err.message }));
-      },
-      options,
-    );
+      }
+    });
 
     return () => {
-      if (watchId.current !== null) {
-        navigator.geolocation.clearWatch(watchId.current);
-      }
+      cancelled = true;
+      subscription.current?.remove();
     };
   }, []);
 

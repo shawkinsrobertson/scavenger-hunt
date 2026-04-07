@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "Scavenger Hunt",
+    "slug": "scavenger-hunt",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#7c3aed"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app uses your location to guide you to each scavenger hunt stop.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "This app uses your location to guide you to each scavenger hunt stop."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#7c3aed"
+      },
+      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"]
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "This app uses your location to guide you to each scavenger hunt stop."
+        }
+      ]
+    ]
+  }
+}
