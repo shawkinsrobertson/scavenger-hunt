@@ -64,10 +64,12 @@ const proximityStyles = StyleSheet.create({
 
 export function ClueScreen({ stop, stopNumber, totalStops, onArrived }: Props) {
   const geo = useGeolocation();
-  const radius = stop.arrivalRadius ?? 30;
+  const arrivalThreshold = 6;
   const translateX = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(0)).current;
   const rotation = useRef(new Animated.Value(0)).current;
+  const accumulatedRotation = useRef(0);
+  const prevBearing = useRef<number | null>(null);
 
   const bearing =
     geo.lat !== null && geo.lng !== null
@@ -77,13 +79,27 @@ export function ClueScreen({ stop, stopNumber, totalStops, onArrived }: Props) {
   useEffect(() => {
     if (bearing === null) return;
 
-    Animated.timing(rotation, {
-      toValue: bearing,
-      duration: 400,
-      easing: Easing.out(Easing.cubic),
-      useNativeDriver: true,
-    }).start();
-  }, [bearing, rotation]);
+    if (prevBearing.current === null) {
+      // First fix — jump straight to the bearing with no animation
+      accumulatedRotation.current = bearing;
+      rotation.setValue(bearing);
+    } else {
+      // Subsequent updates — always take the shortest arc (handles 350°→10° correctly)
+      let delta = bearing - prevBearing.current;
+      if (delta > 180) delta -= 360;
+      if (delta < -180) delta += 360;
+      accumulatedRotation.current += delta;
+
+      Animated.timing(rotation, {
+        toValue: accumulatedRotation.current,
+        duration: 400,
+        easing: Easing.out(Easing.cubic),
+        useNativeDriver: true,
+      }).start();
+    }
+
+    prevBearing.current = bearing;
+  }, [bearing]);
 
   function handleButtonPress() {
     Animated.parallel([
@@ -111,7 +127,7 @@ export function ClueScreen({ stop, stopNumber, totalStops, onArrived }: Props) {
       ? distanceBetween(geo.lat, geo.lng, stop.location.lat, stop.location.lng)
       : null;
 
-  const hasArrived = distance !== null && distance <= radius;
+  const hasArrived = distance !== null && distance <= arrivalThreshold;
 
   const progressPercent = ((stopNumber - 1) / totalStops) * 100;
 
@@ -138,7 +154,7 @@ export function ClueScreen({ stop, stopNumber, totalStops, onArrived }: Props) {
             <Image source={require('../assets/compass-ring.png')} style={styles.compassRing} />
             <Animated.Image
               source={require('../assets/compass-arrow.png')}
-              style={[styles.compassArrow, { transform: [{ rotate: rotation.interpolate({ inputRange: [0, 360], outputRange: ['0deg', '360deg'] }) }] }]}
+              style={[styles.compassArrow, { transform: [{ rotate: rotation.interpolate({ inputRange: [-3600, 3600], outputRange: ['-3600deg', '3600deg'] }) }] }]}
             />
           </View>
           <Text style={styles.heading}>Follow the Clue</Text>
@@ -233,7 +249,7 @@ const styles = StyleSheet.create({
   },
   stopBadgeText: { fontFamily: "RobotoMono-Regular", fontSize: 13, color: colors.primary },
   heroImage: { width: 84, height: 84, marginVertical: 4 },
-  heading: { fontFamily: "RobotoMono-Bold", fontSize: 22, color: colors.text },
+  heading: { fontFamily: "PixelifySans-SemiBold", fontSize: 32, color: colors.text },
   muted: { fontFamily: "RobotoMono-Regular", fontSize: 15, color: colors.textMuted },
   errorBox: {
     backgroundColor: colors.errorContainer,
@@ -257,16 +273,16 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   compassContainer: {
-    width: 140,
-    height: 140,
+    width: 180,
+    height: 180,
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 4,
   },
   compassRing: {
     position: 'absolute',
-    width: 140,
-    height: 140,
+    width: 180,
+    height: 180,
     resizeMode: 'contain',
   },
   compassArrow: {

@@ -27,8 +27,11 @@
       },
       "permissions": [
         "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION"
-      ]
+        "ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ],
+      "package": "com.shrobertson.scavengerhunt"
     },
     "plugins": [
       [
@@ -38,6 +41,11 @@
         }
       ],
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "dacd5751-57ec-4ee6-8162-f6f7f31cb3b6"
+      }
+    }
   }
 }

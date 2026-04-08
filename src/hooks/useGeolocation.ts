@@ -39,8 +39,8 @@ export function useGeolocation(): GeoState {
       subscription.current = await Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.High,
-          distanceInterval: 5,
-          timeInterval: 3000,
+          distanceInterval: 0, // fire on time interval regardless of movement (Android requires BOTH)
+          timeInterval: 2000,
         },
         (loc) => {
           if (cancelled) return;

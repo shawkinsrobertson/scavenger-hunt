@@ -40,7 +40,7 @@ export const hunt: Hunt = {
   stops: [
     {
       id: "stop-1",
-      location: { lat: 47.78214937388619, lng: -122.36755760481087 }, // ← home coords  for testing app
+      location: { lat: 47.781966, lng: -122.367575 }, // ← home coords  for testing app
       clues: {
         far: "Your first surprise is hiding somewhere you love to grab a coffee. Head that direction!",
         medium: "Getting warmer! Think of the place with the green awning you pass most mornings.",
