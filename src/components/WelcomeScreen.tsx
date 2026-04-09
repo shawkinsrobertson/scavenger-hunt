@@ -61,7 +61,7 @@ export function WelcomeScreen({ hunt, onStart }: Props) {
           </View>
           <TouchableOpacity onPress={handleButtonPress} activeOpacity={1} style={styles.buttonContainer}>
             <Animated.Image
-              source={require('../assets/btn-primary-active.png')}
+              source={require('../assets/start-hunt-primary.png')}
               style={[
                 styles.buttonImage,
                 {
