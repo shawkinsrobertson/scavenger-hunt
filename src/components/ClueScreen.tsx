@@ -256,9 +256,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 4,
   },
-  stopBadgeText: { fontFamily: "RobotoMono-Regular", fontSize: 13, color: colors.primary },
+  stopBadgeText: { fontFamily: "RobotoMono-Regular", fontSize: 15, color: colors.primary },
   heroImage: { width: 84, height: 84, marginVertical: 4 },
-  heading: { fontFamily: "PixelifySans-SemiBold", fontSize: 32, color: colors.text },
+  heading: { fontFamily: "PixelifySans-SemiBold", fontSize: 48, color: colors.text },
   muted: { fontFamily: "RobotoMono-Regular", fontSize: 15, color: colors.textMuted },
   errorBox: {
     backgroundColor: colors.errorContainer,

@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   },
   badgeText: {
     fontFamily: "RobotoMono-Medium",
-    fontSize: 14,
+    fontSize: 15,
     color: colors.onPrimaryContainer,
     fontWeight: '600',
   },
