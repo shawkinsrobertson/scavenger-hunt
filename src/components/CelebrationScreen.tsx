@@ -6,6 +6,9 @@ import {
   Animated,
   Dimensions,
   ScrollView,
+  Share,
+  TouchableOpacity,
+  Image,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { colors } from '../styles/colors';
@@ -163,6 +166,10 @@ function StatsPanel({ totalStops, distanceMeters, stepsWalked }: { totalStops: n
     };
   }, [statLines]);
 
+  function handleShare() {
+    Share.share({ message: statLines.join('\n') });
+  }
+
   return (
     <Animated.View style={[termStyles.panel, { opacity: panelOpacity }]}>
       {displayed.map((line, i) => {
@@ -184,6 +191,13 @@ function StatsPanel({ totalStops, distanceMeters, stepsWalked }: { totalStops: n
           </Text>
         );
       })}
+
+      {done && (
+        <TouchableOpacity style={termStyles.shareBtn} onPress={handleShare} activeOpacity={0.7}>
+          <Image source={require('../assets/share-icon.png')} style={termStyles.shareIcon} />
+          <Text style={termStyles.shareLabel}>SHARE REPORT</Text>
+        </TouchableOpacity>
+      )}
     </Animated.View>
   );
 }
@@ -219,6 +233,24 @@ const termStyles = StyleSheet.create({
     fontFamily: 'RobotoMono-Bold',
     color: '#2c03d1',
     fontSize: 15,
+  },
+  shareBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginTop: 14,
+    alignSelf: 'flex-end',
+  },
+  shareIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+  },
+  shareLabel: {
+    fontFamily: 'RobotoMono-Bold',
+    fontSize: 12,
+    color: colors.primary,
+    letterSpacing: 0.5,
   },
 });
 
