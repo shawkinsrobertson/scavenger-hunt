@@ -9,8 +9,8 @@
     "splash": {
       "layout": "fullscreen",
       "background": "#dce1ff",
-      "image": "./src/assets/nsew-compass-ring.png",
-      "resizeMode": "contain",
+      "image": "./src/assets/splash-screen.png",
+      "resizeMode": "cover",
       "backgroundColor": "#dce1ff"
     },
     "ios": {
