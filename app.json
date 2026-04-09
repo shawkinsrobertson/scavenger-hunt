@@ -4,7 +4,7 @@
     "slug": "scavenger-hunt",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/treasure-chest.png",
+    "icon": "./src/assets/nsew-compass-ring.png",
     "userInterfaceStyle": "light",
     "splash": {
       "layout": "fullscreen",
