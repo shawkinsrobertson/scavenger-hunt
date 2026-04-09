@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -20,6 +20,12 @@ interface Props {
 export function WelcomeScreen({ hunt, onStart }: Props) {
   const translateX = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(0)).current;
+  const [cursorVisible, setCursorVisible] = useState(true);
+
+  useEffect(() => {
+    const t = setInterval(() => setCursorVisible(v => !v), 530);
+    return () => clearInterval(t);
+  }, []);
 
   function handleButtonPress() {
     Animated.parallel([
@@ -54,7 +60,10 @@ export function WelcomeScreen({ hunt, onStart }: Props) {
             source={require('../assets/cake.png')}
             style={styles.heroImage}
           />
-          <Text style={styles.title}>{hunt.title}</Text>
+          <Text style={styles.title}>
+            {hunt.title}
+            <Text style={styles.cursor}>{cursorVisible ? ' |' : '  '}</Text>
+          </Text>
           <Text style={styles.message}>{hunt.welcomeMessage}</Text>
           <View style={styles.badge}>
             <Text style={styles.badgeText}>{hunt.stops.length} stops to find</Text>
@@ -141,6 +150,12 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 60,
     marginTop: 8,
+  },
+  cursor: {
+    fontSize: 28,
+    fontWeight: '200',
+    color: colors.text,
+    lineHeight: 60,
   },
   buttonImage: {
    width: '100%',

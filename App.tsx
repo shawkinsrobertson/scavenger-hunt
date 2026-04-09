@@ -4,6 +4,7 @@ import { WelcomeScreen } from './src/components/WelcomeScreen';
 import { ClueScreen } from './src/components/ClueScreen';
 import { PickupScreen } from './src/components/PickupScreen';
 import { CelebrationScreen } from './src/components/CelebrationScreen';
+import { useDistanceTracker } from './src/hooks/useDistanceTracker';
 import * as Font from 'expo-font';
 
 type Phase = 'welcome' | 'clue' | 'pickup' | 'celebration';
@@ -16,6 +17,10 @@ export default function App() {
   const [phase, setPhase] = useState<Phase>('welcome');
   const [currentStopIndex, setCurrentStopIndex] = useState(0);
   const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  const huntActive = phase === 'clue' || phase === 'pickup';
+  const distanceMeters = useDistanceTracker(huntActive);
+  const stepsWalked = Math.round(distanceMeters * 1.3);
 
   useEffect(() => {
     async function loadFonts() {
@@ -33,9 +38,10 @@ export default function App() {
     }
     loadFonts();
   }, []);
+
   if (!fontsLoaded) {
     return null;
-  } 
+  }
 
   const currentStop = hunt.stops[currentStopIndex];
 
@@ -82,6 +88,8 @@ export default function App() {
     <CelebrationScreen
       message={hunt.celebrationMessage}
       totalStops={hunt.stops.length}
+      distanceMeters={distanceMeters}
+      stepsWalked={stepsWalked}
     />
   );
 }

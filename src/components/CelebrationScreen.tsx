@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -6,7 +6,6 @@ import {
   Animated,
   Dimensions,
   ScrollView,
-  Image,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { colors } from '../styles/colors';
@@ -46,16 +45,8 @@ function ConfettiPiece({ piece }: { piece: ConfettiPiece }) {
       Animated.sequence([
         Animated.delay(piece.delay),
         Animated.parallel([
-          Animated.timing(y, {
-            toValue: SCREEN_HEIGHT + 20,
-            duration: 3500,
-            useNativeDriver: true,
-          }),
-          Animated.timing(rotation, {
-            toValue: 1,
-            duration: 3500,
-            useNativeDriver: true,
-          }),
+          Animated.timing(y, { toValue: SCREEN_HEIGHT + 20, duration: 3500, useNativeDriver: true }),
+          Animated.timing(rotation, { toValue: 1, duration: 3500, useNativeDriver: true }),
           Animated.sequence([
             Animated.timing(opacity, { toValue: 1, duration: 2800, useNativeDriver: true }),
             Animated.timing(opacity, { toValue: 0, duration: 700, useNativeDriver: true }),
@@ -86,12 +77,161 @@ function ConfettiPiece({ piece }: { piece: ConfettiPiece }) {
   );
 }
 
+// ─── Stats terminal ──────────────────────────────────────────────────────────
+
+function makeLine(label: string, value: string | number, totalWidth = 26): string {
+  const v = String(value);
+  const dots = '.'.repeat(Math.max(2, totalWidth - label.length - v.length));
+  return `${label}${dots}${v}`;
+}
+
+function generateStats(totalStops: number, distanceMeters: number, stepsWalked: number): string[] {
+  return [
+    '[ BIRTHDAY STATS REPORT ]',
+    '\u2500'.repeat(24),
+    makeLine('STOPS COMPLETED', totalStops),
+    makeLine('STEPS WALKED', stepsWalked > 0 ? stepsWalked.toLocaleString() : Math.floor(Math.random() * 4000 + 4000).toLocaleString()),
+    makeLine('METERS TRAVELED', distanceMeters > 0 ? distanceMeters : Math.floor(Math.random() * 1500 + 800)),
+    makeLine('CRUMPETS EATEN', Math.floor(Math.random() * 4 + 1)),
+    makeLine('CARDS RESCUED', Math.floor(Math.random() * 35 + 12)),
+    makeLine('BOATS EMBARKED', Math.floor(Math.random() * 5 + 2)),
+    '\u2500'.repeat(24),
+    makeLine('BIRTHDAY RATING', '\u2605\u2605\u2605\u2605\u2605'),
+    makeLine('FINAL SCORE', Math.floor(Math.random() * 900000 + 100000)),
+  ];
+}
+
+function StatsPanel({ totalStops, distanceMeters, stepsWalked }: { totalStops: number; distanceMeters: number; stepsWalked: number }) {
+  const statLines = useRef(generateStats(totalStops, distanceMeters, stepsWalked)).current;
+  const [displayed, setDisplayed] = useState<string[]>([]);
+  const [cursorVisible, setCursorVisible] = useState(true);
+  const [done, setDone] = useState(false);
+  const panelOpacity = useRef(new Animated.Value(0)).current;
+
+  // Fade panel in before typing starts
+  useEffect(() => {
+    const t = setTimeout(() => {
+      Animated.timing(panelOpacity, { toValue: 1, duration: 500, useNativeDriver: true }).start();
+    }, 1400);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Blinking cursor
+  useEffect(() => {
+    const t = setInterval(() => setCursorVisible(v => !v), 530);
+    return () => clearInterval(t);
+  }, []);
+
+  // Teletype
+  useEffect(() => {
+    let li = 0;
+    let ci = 0;
+    let timer: ReturnType<typeof setTimeout>;
+
+    function tick() {
+      if (li >= statLines.length) {
+        setDone(true);
+        return;
+      }
+
+      const line = statLines[li];
+
+      if (ci <= line.length) {
+        const chunk = line.slice(0, ci);
+        setDisplayed(prev => {
+          const next = [...prev];
+          while (next.length <= li) next.push('');
+          next[li] = chunk;
+          return next;
+        });
+        ci++;
+        timer = setTimeout(tick, 20);
+      } else {
+        li++;
+        ci = 0;
+        // Longer pause after the header and dividers
+        const prevLine = statLines[li - 1];
+        const pause = prevLine.startsWith('[') || prevLine.startsWith('\u2500') ? 180 : 60;
+        timer = setTimeout(tick, pause);
+      }
+    }
+
+    const startDelay = setTimeout(tick, 2000);
+    return () => {
+      clearTimeout(startDelay);
+      clearTimeout(timer);
+    };
+  }, [statLines]);
+
+  return (
+    <Animated.View style={[termStyles.panel, { opacity: panelOpacity }]}>
+      {displayed.map((line, i) => {
+        const isHeader = line.startsWith('[');
+        const isDivider = line.startsWith('\u2500');
+        const isFinal = line.startsWith('FINAL');
+        const isLast = i === displayed.length - 1 && !done;
+        return (
+          <Text
+            key={i}
+            style={[
+              termStyles.line,
+              isHeader && termStyles.headerLine,
+              isDivider && termStyles.dividerLine,
+              isFinal && termStyles.finalLine,
+            ]}
+          >
+            {line}{isLast ? (cursorVisible ? '\u2588' : ' ') : ''}
+          </Text>
+        );
+      })}
+    </Animated.View>
+  );
+}
+
+const termStyles = StyleSheet.create({
+  panel: {
+    backgroundColor: colors.surfaceVariant,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#1a3050',
+    padding: 18,
+    width: '100%',
+    maxWidth: 440,
+    marginTop: 16,
+    marginBottom: 8,
+  },
+  line: {
+    fontFamily: 'RobotoMono-Regular',
+    fontSize: 13,
+    color: '#00115a',
+    lineHeight: 22,
+    letterSpacing: 0.2,
+  },
+  headerLine: {
+    fontFamily: 'RobotoMono-Bold',
+    color: '#2d1229',
+    textAlign: 'center',
+  },
+  dividerLine: {
+    color: '#1a4228',
+  },
+  finalLine: {
+    fontFamily: 'RobotoMono-Bold',
+    color: '#2c03d1',
+    fontSize: 15,
+  },
+});
+
+// ─── Main screen ─────────────────────────────────────────────────────────────
+
 interface Props {
   message: string;
   totalStops: number;
+  distanceMeters: number;
+  stepsWalked: number;
 }
 
-export function CelebrationScreen({ message, totalStops }: Props) {
+export function CelebrationScreen({ message, totalStops, distanceMeters, stepsWalked }: Props) {
   const scale = useRef(new Animated.Value(0)).current;
   const cakeScale = useRef(new Animated.Value(0)).current;
   const balloonY = useRef(new Animated.Value(0)).current;
@@ -110,15 +250,13 @@ export function CelebrationScreen({ message, totalStops }: Props) {
   return (
     <View style={styles.screen}>
       <StatusBar style="dark" />
-      {pieces.map((p, i) => (
-        <ConfettiPiece key={i} piece={p} />
-      ))}
+      {pieces.map((p, i) => <ConfettiPiece key={i} piece={p} />)}
 
       <ScrollView
         contentContainerStyle={styles.scroll}
         showsVerticalScrollIndicator={false}
       >
-        <Animated.View style={[styles.card, { transform: [{ scale }] }]}> 
+        <Animated.View style={[styles.card, { transform: [{ scale }] }]}>
           <Animated.Image
             source={require('../assets/cake.png')}
             style={[styles.cakeImage, { transform: [{ scale: cakeScale }] }]}
@@ -135,6 +273,8 @@ export function CelebrationScreen({ message, totalStops }: Props) {
             style={[styles.balloonImage, { transform: [{ translateY: balloonY }] }]}
           />
         </Animated.View>
+
+        <StatsPanel totalStops={totalStops} distanceMeters={distanceMeters} stepsWalked={stepsWalked} />
       </ScrollView>
     </View>
   );
@@ -147,6 +287,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 24,
+    paddingBottom: 40,
   },
   card: {
     backgroundColor: colors.surface,
@@ -169,13 +310,13 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   title: {
-    fontFamily: "PixelifySans-Bold",
+    fontFamily: 'PixelifySans-Bold',
     fontSize: 48,
     color: colors.primary,
     textAlign: 'center',
   },
   message: {
-    fontFamily: "RobotoMono-Regular",
+    fontFamily: 'RobotoMono-Regular',
     fontSize: 16,
     color: colors.textMuted,
     lineHeight: 26,
@@ -187,10 +328,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     paddingVertical: 8,
   },
-  summaryText: { 
-    fontFamily: "PixelifySans-SemiBold",
-    fontSize: 20, 
-    color: colors.textMuted 
+  summaryText: {
+    fontFamily: 'PixelifySans-SemiBold',
+    fontSize: 20,
+    color: colors.textMuted,
   },
   balloonImage: {
     width: 120,
