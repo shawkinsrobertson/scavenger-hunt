@@ -282,10 +282,10 @@ const styles = StyleSheet.create({
   errorSmall: { fontFamily: "RobotoMono-Regular", fontSize: 12, color: colors.onErrorContainer },
   
   clueBox: {
-    backgroundColor: colors.surfaceVariant,
+    backgroundColor: colors.primaryContainer,
     borderRadius: 4,
     padding: 16,
-    width: '100%',
+    width: '80%',
   },
 
   clueText: { fontFamily: "RobotoMono-Regular", fontSize: 16, color: colors.text, lineHeight: 24 },
@@ -347,3 +347,4 @@ const styles = StyleSheet.create({
   },
 
 });
+

@@ -205,9 +205,9 @@ function StatsPanel({ totalStops, distanceMeters, stepsWalked }: { totalStops: n
 const termStyles = StyleSheet.create({
   panel: {
     backgroundColor: colors.surfaceVariant,
-    borderRadius: 4,
-    borderWidth: 3,
-    borderColor: '#92a0ff',
+    borderRadius: 2,
+    borderWidth: 2,
+    borderColor: colors.onPrimaryContainer,
     padding: 18,
     width: '100%',
     maxWidth: 440,
@@ -296,11 +296,6 @@ export function CelebrationScreen({ message, totalStops, distanceMeters, stepsWa
           />
           <Text style={styles.title}>You Did It!</Text>
           <Text style={styles.message}>{message}</Text>
-          <View style={styles.summaryBadge}>
-            <Text style={styles.summaryText}>
-              🎁 {totalStops} stop{totalStops !== 1 ? 's' : ''} completed
-            </Text>
-          </View>
           <Animated.Image
             source={require('../assets/balloon.png')}
             style={[styles.balloonImage, { transform: [{ translateY: balloonY }] }]}
@@ -314,7 +309,11 @@ export function CelebrationScreen({ message, totalStops, distanceMeters, stepsWa
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.primary },
+  screen: { 
+    flex: 1, 
+    experimental_backgroundImage: "radial-gradient(#fefbff 65%, #e2e1ec 85%, #dfe1f9 95%)",
+  },
+
   scroll: {
     flexGrow: 1,
     alignItems: 'center',
@@ -322,21 +321,21 @@ const styles = StyleSheet.create({
     padding: 24,
     paddingBottom: 40,
   },
+
   card: {
-    backgroundColor: colors.surface,
-    borderRadius: 4,
-    padding: 32,
-    width: '100%',
-    maxWidth: 440,
+    display: 'flex',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    gap: 20,
-    shadowColor: colors.inversePrimary,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.25,
-    shadowRadius: 20,
-    elevation: 8,
-    zIndex: 1,
+    flexDirection: 'column',
+    backgroundColor: 'transparent',
+    borderRadius: 4,
+    padding: 16,
+    width: '100%',
+    height: '100%',
+    marginBottom: 16,
+    gap: 12,
   },
+
   cakeImage: {
     width: 92,
     height: 92,
@@ -345,7 +344,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: 'PixelifySans-Bold',
     fontSize: 48,
-    color: colors.primary,
+    color: colors.onPrimaryContainer,
     textAlign: 'center',
   },
   message: {

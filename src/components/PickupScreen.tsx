@@ -77,7 +77,7 @@ export function PickupScreen({ stop, stopNumber, totalStops, onConfirmed, devMod
 
           {!confirmed ? (
             <>
-              <Image source={require('../assets/key.png')} style={styles.heroImage} />
+              <Image source={require('../assets/icon-chest.png')} style={styles.heroImage} />
               <Text style={styles.heading}>You're Here!</Text>
               <View style={styles.arrivalBox}>
                 <Text style={styles.arrivalText}>{stop.arrivalMessage}</Text>
@@ -143,56 +143,91 @@ const dotStyles = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.secondaryContainer },
-  progressTrack: { height: 5, backgroundColor: 'rgba(0,0,0,0.12)' },
+  screen: { 
+    flex: 1, 
+    experimental_backgroundImage: "radial-gradient(#fefbff 65%, #e2e1ec 85%, #dfe1f9 95%)",
+   },
+
+  progressTrack: { 
+    height: 5, 
+    backgroundColor: 'rgba(0,0,0,0.12)' 
+  },
+
   progressBar: {
     height: 5,
     backgroundColor: colors.primary,
     borderBottomRightRadius: 3,
     borderTopRightRadius: 3,
   },
+
   content: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 24,
   },
+
   card: {
-    backgroundColor: colors.surface,
-    borderRadius: 4,
-    padding: 28,
-    width: '100%',
-    maxWidth: 440,
+    display: 'flex',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    gap: 24,
-    shadowColor: colors.tertiary,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.2,
-    shadowRadius: 20,
-    elevation: 8,
+    flexDirection: 'column',
+    backgroundColor: 'transparent',
+    borderRadius: 4,
+    padding: 16,
+    width: '100%',
+    height: '100%',
+    marginBottom: 16,
+    gap: 12,
   },
+
   stopBadge: {
     backgroundColor: colors.primaryContainer,
     borderRadius: 4,
     paddingHorizontal: 14,
     paddingVertical: 4,
   },
-  stopBadgeText: { fontFamily: "RobotoMono-Regular", fontSize: 15, color: colors.primary },
-  heroImage: { width: 120, height: 120, padding: -24, marginBottom: -24 },
+
+  stopBadgeText: { 
+    fontFamily: "RobotoMono-Regular", 
+    fontSize: 15, 
+    color: colors.primary 
+  },
+  
+  heroImage: { 
+    width: 180, 
+    height:180, 
+   },
+
   confirmedEmoji: { fontSize: 56 },
-  heading: { fontFamily: "PixelifySans-SemiBold", fontSize:56, color: colors.text, textAlign: 'center', marginBottom: 24 },
+
+  heading: { 
+    fontFamily: "PixelifySans-SemiBold",
+    fontSize: 42, 
+    color: colors.text, 
+    textAlign: 'center', 
+    },
+
   arrivalBox: {
     backgroundColor: colors.surfaceVariant,
     borderRadius: 4,
     padding: 16,
-    width: '100%',
+    width: '80%',
   },
-  arrivalText: { fontFamily: "RobotoMono-Regular", fontSize: 16, color: colors.text, lineHeight: 24 },
+
+  arrivalText: { 
+    fontFamily: "RobotoMono-Regular", 
+    fontSize: 16, 
+    color: colors.text, 
+    lineHeight: 24 
+  },
+  
   buttonContainer: {
     width: '100%',
     height: 60,
     marginTop: 4,
   },
+
   buttonImage: {
     width: '100%',
     height: '100%',
