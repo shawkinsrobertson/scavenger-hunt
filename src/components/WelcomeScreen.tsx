@@ -55,7 +55,6 @@ export function WelcomeScreen({ hunt, onStart }: Props) {
         contentContainerStyle={styles.scroll}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.card}>
           <Image
             source={require('../assets/cake.png')}
             style={styles.heroImage}
@@ -79,7 +78,6 @@ export function WelcomeScreen({ hunt, onStart }: Props) {
               ]}
             />
           </TouchableOpacity>
-        </View>
       </ScrollView>
     </View>
   );
@@ -88,7 +86,7 @@ export function WelcomeScreen({ hunt, onStart }: Props) {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: colors.primary,
+    experimental_backgroundImage: "radial-gradient(#fefbff 65%, #e2e1ec 85%, #dfe1f9 95%)",
   },
   scroll: {
     flexGrow: 1,
@@ -96,35 +94,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 24,
   },
-  card: {
-    backgroundColor: colors.surface,
-    borderRadius: 4,
-    padding: 32,
-    width: '100%',
-    maxWidth: 440,
-    alignItems: 'center',
-    gap: 18,
-    borderWidth: 1,
-    borderColor: colors.surfaceVariant,
-    shadowColor: colors.shadow,
-    shadowOffset: { width: 0, height: 14 },
-    shadowOpacity: 0.14,
-    shadowRadius: 28,
-    elevation: 10,
-  },
+
   heroImage: {
     width: 112,
     height: 112,
     marginBottom: 8,
   },
+
   emoji: {
     fontSize: 56,
   },
+
   title: {
     fontFamily: "PixelifySans-Regular",
     fontSize: 60,
     color: colors.text,
     textAlign: 'center',
+
   },
   message: {
     fontFamily: "RobotoMono-Regular",
@@ -133,30 +119,43 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlign: 'left',
     width: '100%',
+    marginBottom: 16,
+    marginTop: 16,
+    marginLeft: 12,
+    marginRight: 12,
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    alignSelf: 'center',
   },
+
   badge: {
     backgroundColor: colors.primaryContainer,
     borderRadius: 4,
     paddingHorizontal: 16,
     paddingVertical: 6,
+    marginBottom: 24,
   },
+
   badgeText: {
     fontFamily: "RobotoMono-Medium",
     fontSize: 15,
     color: colors.onPrimaryContainer,
     fontWeight: '600',
   },
+
   buttonContainer: {
     width: '100%',
     height: 60,
     marginTop: 8,
   },
+
   cursor: {
     fontSize: 28,
     fontWeight: '200',
     color: colors.text,
     lineHeight: 60,
   },
+
   buttonImage: {
    width: '100%',
    height: '100%',
