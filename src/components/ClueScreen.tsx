@@ -282,13 +282,13 @@ const styles = StyleSheet.create({
   errorSmall: { fontFamily: "RobotoMono-Regular", fontSize: 12, color: colors.onErrorContainer },
   
   clueBox: {
-    backgroundColor: colors.primaryContainer,
+    backgroundColor: colors.surfaceVariant,
     borderRadius: 4,
     padding: 16,
-    width: '80%',
+    width: '100%',
   },
 
-  clueText: { fontFamily: "RobotoMono-Regular", fontSize: 16, color: colors.text, lineHeight: 24 },
+  clueText: { fontFamily: "RobotoMono-Regular", fontSize: 16, color: colors.text, lineHeight: 24, textAlign: 'center' },
   
   distanceBadge: { fontFamily: "PixelifySans-SemiBold", fontSize: 40, color: colors.textMuted, marginTop: 16 },
   

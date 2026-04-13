@@ -17,7 +17,7 @@ export default function App() {
   const [phase, setPhase] = useState<Phase>('welcome');
   const [currentStopIndex, setCurrentStopIndex] = useState(0);
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  const [irisOpen, setIrisOpen] = useState(true);
+  const [irisOpen, setIrisOpen] = useState(false);
   const [pendingPhase, setPendingPhase] = useState<Phase | null>(null);
 
   const huntActive = phase === 'clue' || phase === 'pickup';
@@ -26,39 +26,44 @@ export default function App() {
 
   useEffect(() => {
     async function loadFonts() {
-      await Font.loadAsync({
-        'PixelifySans-Regular': require('./src/assets/Fonts/PixelifySans-Regular.ttf'),
-        'PixelifySans-Bold': require('./src/assets/Fonts/PixelifySans-Bold.ttf'),
-        'PixelifySans-Medium': require('./src/assets/Fonts/PixelifySans-Medium.ttf'),
-        'PixelifySans-SemiBold': require('./src/assets/Fonts/PixelifySans-SemiBold.ttf'),
-        'RobotoMono-Regular': require('./src/assets/Fonts/RobotoMono-Regular.ttf'),
-        'RobotoMono-Light': require('./src/assets/Fonts/RobotoMono-Light.ttf'),
-        'RobotoMono-Medium': require('./src/assets/Fonts/RobotoMono-Medium.ttf'),
-        'RobotoMono-Bold': require('./src/assets/Fonts/RobotoMono-Bold.ttf'),
-      });
+      try {
+        await Font.loadAsync({
+          'PixelifySans-Regular': require('./src/assets/Fonts/PixelifySans-Regular.ttf'),
+          'PixelifySans-Bold': require('./src/assets/Fonts/PixelifySans-Bold.ttf'),
+          'PixelifySans-Medium': require('./src/assets/Fonts/PixelifySans-Medium.ttf'),
+          'PixelifySans-SemiBold': require('./src/assets/Fonts/PixelifySans-SemiBold.ttf'),
+          'RobotoMono-Regular': require('./src/assets/Fonts/RobotoMono-Regular.ttf'),
+          'RobotoMono-Light': require('./src/assets/Fonts/RobotoMono-Light.ttf'),
+          'RobotoMono-Medium': require('./src/assets/Fonts/RobotoMono-Medium.ttf'),
+          'RobotoMono-Bold': require('./src/assets/Fonts/RobotoMono-Bold.ttf'),
+        });
+      } catch (e) {
+        console.warn('Font loading failed:', e);
+      }
       setFontsLoaded(true);
     }
     loadFonts();
   }, []);
 
-  // --- early return for font loading, NO other code inside here ---
-  if (!fontsLoaded) {
-    return null;
-  }
+  // Once fonts are ready, open the iris
+  useEffect(() => {
+    if (fontsLoaded) {
+      setIrisOpen(true);
+    }
+  }, [fontsLoaded]);
 
-  // --- all functions and logic go here, AFTER the early return ---
-
-  function transitionTo(nextPhase: Phase) {
-    setPendingPhase(nextPhase);
-    setIrisOpen(false);
-  }
-
+  // Defined before any return that uses it
   function handleIrisClosed() {
     if (pendingPhase) {
       setPhase(pendingPhase);
       setPendingPhase(null);
     }
     setTimeout(() => setIrisOpen(true), 350);
+  }
+
+  function transitionTo(nextPhase: Phase) {
+    setPendingPhase(nextPhase);
+    setIrisOpen(false);
   }
 
   const currentStop = hunt.stops[currentStopIndex];
@@ -77,14 +82,15 @@ export default function App() {
     }
   }
 
+  // Single return — IrisTransition always mounted, screens gated by fontsLoaded
   return (
     <View style={styles.container}>
 
-      {phase === 'welcome' && (
+      {fontsLoaded && phase === 'welcome' && (
         <WelcomeScreen hunt={hunt} onStart={() => transitionTo('clue')} />
       )}
 
-      {phase === 'clue' && currentStop && (
+      {fontsLoaded && phase === 'clue' && currentStop && (
         <ClueScreen
           stop={currentStop}
           stopNumber={currentStopIndex + 1}
@@ -94,7 +100,7 @@ export default function App() {
         />
       )}
 
-      {phase === 'pickup' && currentStop && (
+      {fontsLoaded && phase === 'pickup' && currentStop && (
         <PickupScreen
           stop={currentStop}
           stopNumber={currentStopIndex + 1}
@@ -104,7 +110,7 @@ export default function App() {
         />
       )}
 
-      {phase === 'celebration' && (
+      {fontsLoaded && phase === 'celebration' && (
         <CelebrationScreen
           message={hunt.celebrationMessage}
           totalStops={hunt.stops.length}
@@ -113,7 +119,6 @@ export default function App() {
         />
       )}
 
-      {/* Iris overlay — sits on top of all screens */}
       <IrisTransition
         visible={irisOpen}
         onClosed={handleIrisClosed}

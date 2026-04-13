@@ -34,47 +34,47 @@ export interface Hunt {
 export const hunt: Hunt = {
   title: "Welcome, Julie",
   welcomeMessage:
-    "to your very own birthday scavenger hunt!\n\nYou'll visit a few special spots to collect your surprises. Follow the clues at each step — your phone's GPS will guide you.\n\nWhen you're ready, head out to find your first stop!",
+    "to your birthday scavenger hunt! \n\n Follow the clues and your trusty compass and embark on a treasure-filled adventure.",
   celebrationMessage:
-    "🎉 Happy Birthday! 🎂\n\nYou found everything! Hope today is as wonderful as you are. Enjoy your treats — you've earned them! 🥳",
+    " Happy birthday, my love! The hunt is over, but the day is just beginning. I'll see you on the Kingston shore.",
   stops: [
     {
       id: "stop-1",
       location: { lat: 47.78434001539218, lng: -122.37309446653053 }, // ← cherry tree at Hickman Park  
       clues: {
-        far: "Your first surprise is hiding somewhere you love to grab a coffee. Head that direction!",
-        medium: "Getting warmer! Think of the place with the green awning you pass most mornings.",
-        near: "Almost there — look for the spot near the entrance.",
+        far: "Your adventure begins close to home. Seek out a place of open ground and old growth.",
+        medium: "You are close. Among all, one stands apart.",
+        near: "The old cherry tree is within reach. Look deeply for what she carries.",
       },
-      arrivalMessage: "You made it! 🎁 Look for a small package waiting for you near the door.",
-      confirmLabel: "I picked up my treat!",
-      confirmedMessage: "Woohoo! 🎊 On to the next one…",
+      arrivalMessage: "Well found. Keep the mug close. Do not open the envelope until you are safely at your next stop.",
+      confirmLabel: "I have found the treasure.",
+      confirmedMessage: "A keen eye and a brave heart. The hunt is off to a great start!",
       arrivalRadius: 40,
     },
     {
       id: "stop-2",
       location: { lat: 47.81022358987489, lng: -122.37540156130295 }, // ← crumpet shop for bkfst and tea
       clues: {
-        far: "Next up: somewhere green and peaceful where you like to sit and read.",
-        medium: "You're close to the park. Head toward the main bench area.",
-        near: "Look around — your next surprise is very close by.",
+        far: "Ride north. Your destination you have passed more mornings than you can count.",
+        medium: "Continue west at the library.",
+        near: "The savory aromas tempt you to a door tucked away from the street.",
       },
-      arrivalMessage: "Found it! 🌿 Check under the bench for your next gift.",
-      confirmLabel: "Got it!",
-      confirmedMessage: "One more to go! 🎈",
+      arrivalMessage: "Give them your name — something is waiting for you behind the counter. Open your letter when you are ready.",
+      confirmLabel: "Treasure in hand.",
+      confirmedMessage: "A hearty breakfast for an intrepid adventurer!",
       arrivalRadius: 30,
     },
     {
       id: "stop-3",
       location: { lat: 47.81309511190101, lng: -122.38424472655709 }, // ← edmonds to kingston ferry terminal
       clues: {
-        far: "Last stop — think of the place that smells like fresh bread and good things.",
-        medium: "Almost there! The bakery should be coming into view.",
-        near: "Right around the corner now!",
+        far: "Inside the envelope you will find passage across the water. Make your way on foot.",
+        medium: "Salt in the air now. The sound of the water is close. You are nearly there.",
+        near: "The terminal is ahead. Board when you are ready.",
       },
-      arrivalMessage: "You made it to the last stop! 🥐 Ask inside for a special order under your name.",
-      confirmLabel: "I got my final surprise!",
-      confirmedMessage: "That's everything! 🎂 Time to celebrate!",
+      arrivalMessage: "Cross the water. Someone is waiting on the other side.",
+      confirmLabel: "From land to see, the treasure is with me.",
+      confirmedMessage: "Welcome aboard!",
       arrivalRadius: 35,
     },
   ],

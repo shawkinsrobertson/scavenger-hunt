@@ -55,6 +55,7 @@ export function WelcomeScreen({ hunt, onStart }: Props) {
         contentContainerStyle={styles.scroll}
         showsVerticalScrollIndicator={false}
       >
+        <View style={styles.card}>
           <Image
             source={require('../assets/cake.png')}
             style={styles.heroImage}
@@ -78,6 +79,7 @@ export function WelcomeScreen({ hunt, onStart }: Props) {
               ]}
             />
           </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
   );
@@ -105,6 +107,19 @@ const styles = StyleSheet.create({
     fontSize: 56,
   },
 
+  card: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexDirection: 'column',
+    backgroundColor: 'transparent',
+    borderRadius: 4,
+    padding: 16,
+    width: '100%',
+    marginBottom: 16,
+    gap: 12,
+  },
+
   title: {
     fontFamily: "PixelifySans-Regular",
     fontSize: 60,
@@ -117,7 +132,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.textMuted,
     lineHeight: 24,
-    textAlign: 'left',
+    textAlign: 'center',
     width: '100%',
     marginBottom: 16,
     marginTop: 16,

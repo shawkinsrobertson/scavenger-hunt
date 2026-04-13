@@ -27,6 +27,12 @@ export function PickupScreen({ stop, stopNumber, totalStops, onConfirmed, devMod
 
   const progressPercent = ((stopNumber - 1) / totalStops) * 100;
 
+const STOP_ICONS = [
+  require('../assets/tree.png'),  // stop 1
+  require('../assets/coffee-mug.png'),      // stop 2
+  require('../assets/beach.png'),         // stop 3
+];
+
   function handleButtonPress() {
     Animated.parallel([
       Animated.timing(buttonTranslateX, {
@@ -51,7 +57,7 @@ export function PickupScreen({ stop, stopNumber, totalStops, onConfirmed, devMod
       useNativeDriver: true,
       friction: 5,
     }).start();
-    setTimeout(onConfirmed, devMode ? 0 : 2200);
+    setTimeout(onConfirmed, devMode ? 2200 : 2200);
   }
 
   useEffect(() => {
@@ -96,7 +102,10 @@ export function PickupScreen({ stop, stopNumber, totalStops, onConfirmed, devMod
             </>
           ) : (
             <>
-              <Animated.Text style={[styles.confirmedEmoji, { transform: [{ scale: emojiScale }] }]}>🎊</Animated.Text>
+              <Animated.Image
+                  source={STOP_ICONS[(stopNumber - 1) % STOP_ICONS.length]}
+                  style={[styles.confirmedIcon, { transform: [{ scale: emojiScale }] }]}
+                />
               <Text style={styles.heading}>{stop.confirmedMessage}</Text>
               <LoadingDots />
             </>
@@ -199,7 +208,11 @@ const styles = StyleSheet.create({
     height:180, 
    },
 
-  confirmedEmoji: { fontSize: 56 },
+  confirmedIcon: {
+  width: 120,
+  height: 120,
+  resizeMode: 'contain',
+},
 
   heading: { 
     fontFamily: "PixelifySans-SemiBold",
@@ -219,7 +232,8 @@ const styles = StyleSheet.create({
     fontFamily: "RobotoMono-Regular", 
     fontSize: 16, 
     color: colors.text, 
-    lineHeight: 24 
+    lineHeight: 24,
+    textAlign: 'center',
   },
   
   buttonContainer: {
