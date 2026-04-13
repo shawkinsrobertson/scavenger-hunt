@@ -25,7 +25,7 @@ export function IrisTransition({ visible, onClosed, color = '#1a1a1a' }: Props) 
       Animated.timing(radius, {
         toValue: 0,
         duration: 700,
-        easing: Easing.steps(8, true),
+        easing: (t) => Math.floor(t * 8) / 8,
         useNativeDriver: false, // r prop can't use native driver
       }).start(({ finished }) => {
         if (finished && onClosed) onClosed();
@@ -35,7 +35,7 @@ export function IrisTransition({ visible, onClosed, color = '#1a1a1a' }: Props) 
       Animated.timing(radius, {
         toValue: MAX_R,
         duration: 700,
-        easing: Easing.steps(8, true),
+        easing: (t) => Math.floor(t * 8) / 8,
         useNativeDriver: false,
       }).start();
     }
