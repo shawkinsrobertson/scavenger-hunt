@@ -168,6 +168,7 @@ export function ClueScreen({ stop, stopNumber, totalStops, onArrived, devMode }:
               style={[styles.compassArrow, { transform: [{ rotate: rotation.interpolate({ inputRange: [-3600, 3600], outputRange: ['-3600deg', '3600deg'] }) }] }]}
             />
           </View>
+        
           <Text style={styles.heading}>Follow the Clue</Text>
 
           {!devMode && geo.loading && (
@@ -219,73 +220,90 @@ export function ClueScreen({ stop, stopNumber, totalStops, onArrived, devMode }:
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.secondary },
+  screen: { 
+    flex: 1, 
+    experimental_backgroundImage: "radial-gradient(#fefbff 65%, #e2e1ec 85%, #dfe1f9 95%)",
+  },
+
   progressTrack: {
     height: 5,
     backgroundColor: 'rgba(255,255,255,0.25)',
   },
-  progressBar: {
+
+    progressBar: {
     height: 5,
     backgroundColor: colors.surface,
     borderBottomRightRadius: 3,
     borderTopRightRadius: 3,
   },
+
   scroll: {
     flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 24,
   },
-  card: {
-    backgroundColor: colors.surface,
-    borderRadius: 4,
-    padding: 28,
-    width: '100%',
-    maxWidth: 440,
-    alignItems: 'center',
-    gap: 16,
-    shadowColor: colors.secondary,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.2,
-    shadowRadius: 20,
-    elevation: 8,
-  },
+
   stopBadge: {
     backgroundColor: colors.primaryContainer,
     borderRadius: 4,
     paddingHorizontal: 14,
     paddingVertical: 4,
   },
-  stopBadgeText: { fontFamily: "RobotoMono-Regular", fontSize: 15, color: colors.primary },
-  heroImage: { width: 84, height: 84, marginVertical: 4 },
-  heading: { fontFamily: "PixelifySans-SemiBold", fontSize: 48, color: colors.text },
+
+  stopBadgeText: { 
+    fontFamily: "RobotoMono-Regular", 
+    fontSize: 15, 
+    color: colors.primary },
+  
+  heroImage: { 
+    width: 84, 
+    height: 84, 
+    marginVertical: 4 },
+  
+  heading: { 
+    fontFamily: "PixelifySans-SemiBold", 
+    fontSize: 48, 
+    color: colors.text,
+    textAlign: 'center',
+   },
+  
   muted: { fontFamily: "RobotoMono-Regular", fontSize: 15, color: colors.textMuted },
+  
   errorBox: {
     backgroundColor: colors.errorContainer,
     borderRadius: 4,
     padding: 14,
     width: '100%',
   },
+
   errorText: { fontFamily: "RobotoMono-Regular", fontSize: 14, color: colors.error, marginBottom: 4 },
+  
   errorSmall: { fontFamily: "RobotoMono-Regular", fontSize: 12, color: colors.onErrorContainer },
+  
   clueBox: {
     backgroundColor: colors.surfaceVariant,
     borderRadius: 4,
     padding: 16,
     width: '100%',
   },
+
   clueText: { fontFamily: "RobotoMono-Regular", fontSize: 16, color: colors.text, lineHeight: 24 },
+  
   distanceBadge: { fontFamily: "PixelifySans-SemiBold", fontSize: 40, color: colors.textMuted, marginTop: 16 },
+  
   buttonContainer: {
     width: '100%',
     height: 60,
     marginTop: 4,
   },
+
   buttonImage: {
     width: '100%',
     height: '100%',
     resizeMode: 'contain',
   },
+
   compassContainer: {
     width: 180,
     height: 180,
@@ -293,12 +311,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginVertical: 4,
   },
+
   compassRing: {
     position: 'absolute',
     width: 180,
     height: 180,
     resizeMode: 'contain',
   },
+
   compassArrow: {
     position: 'absolute',
     width: 84,
@@ -310,5 +330,20 @@ const styles = StyleSheet.create({
     fontFamily: "RobotoMono-Regular",
     fontSize: 12,
     color: colors.textMuted,
+
   },
+
+  card: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'column',
+    backgroundColor: 'transparent',
+    borderRadius: 4,
+    padding: 16,
+    width: '100%',
+    height: '100%',
+    marginBottom: 16,
+  },
+
 });
