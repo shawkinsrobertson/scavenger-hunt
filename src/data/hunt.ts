@@ -40,7 +40,7 @@ export const hunt: Hunt = {
   stops: [
     {
       id: "stop-1",
-      location: { lat: 47.781966, lng: -122.367575 }, // ← home coords  for testing app
+      location: { lat: 47.78434001539218, lng: -122.37309446653053 }, // ← cherry tree at Hickman Park  
       clues: {
         far: "Your first surprise is hiding somewhere you love to grab a coffee. Head that direction!",
         medium: "Getting warmer! Think of the place with the green awning you pass most mornings.",
