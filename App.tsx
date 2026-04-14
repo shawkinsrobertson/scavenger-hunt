@@ -11,7 +11,7 @@ import * as Font from 'expo-font';
 
 type Phase = 'welcome' | 'clue' | 'pickup' | 'celebration';
 
-const DEV_MODE = true;
+const DEV_MODE = false; // Set to true to speed up timers for testing
 
 export default function App() {
   const [phase, setPhase] = useState<Phase>('welcome');
