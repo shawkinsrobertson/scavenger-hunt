@@ -67,7 +67,7 @@ const proximityStyles = StyleSheet.create({
 export function ClueScreen({ stop, stopNumber, totalStops, onArrived, devMode }: Props) {
   const geo = useGeolocation();
   const heading = useHeading();
-  const arrivalThreshold = 6;
+  const arrivalThreshold = 10; // Meters within which arrival can be confirmed
   const translateX = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(0)).current;
   const rotation = useRef(new Animated.Value(0)).current;

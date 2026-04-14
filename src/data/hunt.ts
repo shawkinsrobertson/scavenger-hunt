@@ -43,8 +43,8 @@ export const hunt: Hunt = {
       location: { lat: 47.78434001539218, lng: -122.37309446653053 }, // ← cherry tree at Hickman Park  
       clues: {
         far: "Your adventure begins close to home. Seek out a place of open ground and old growth.",
-        medium: "You are close. Among all, one stands apart.",
-        near: "The old cherry tree is within reach. Look deeply for what she carries.",
+        medium: "Your adventure begins close to home. Seek out a place of open ground and old growth.",
+        near: "You are close. Among all, one stands apart with blossoms bright.",
       },
       arrivalMessage: "Well found. Keep the mug close. Do not open the envelope until you are safely at your next stop.",
       confirmLabel: "I have found the treasure.",
@@ -55,8 +55,8 @@ export const hunt: Hunt = {
       id: "stop-2",
       location: { lat: 47.81022358987489, lng: -122.37540156130295 }, // ← crumpet shop for bkfst and tea
       clues: {
-        far: "Ride north. Your destination you have passed more mornings than you can count.",
-        medium: "Continue west at the library.",
+        far: "Ride north. Your destination is one often passed but today will be visited.",
+        medium: "Continue west from the library.",
         near: "The savory aromas tempt you to a door tucked away from the street.",
       },
       arrivalMessage: "Give them your name — something is waiting for you behind the counter. Open your letter when you are ready.",
